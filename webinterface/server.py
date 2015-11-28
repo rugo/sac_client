@@ -10,6 +10,11 @@ contents = {
     "unregistered": ""
 }
 
+variables = {
+    "@device_id": util.get_device_id(),
+    "@secret": util.get_secret() if util.is_registered() else util.create_secret()
+}
+
 class DefHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     """
     Only delivers the html code that POSTs data to the
@@ -24,11 +29,14 @@ class DefHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             s.wfile.write(contents["registered"])
         else:
             s.wfile.write(contents["unregistered"])
+            util.register()
 
 def read_file(name):
-    # TODO: basic templating
     with open (TEMPLATE_DIR + name + ".html", "r") as f:
-        contents[name] = f.read()
+        content = f.read()
+        for var in variables:
+            content = content.replace(var, variables[var])
+        contents[name]  = content
 
 def read_files():
     for k in contents:

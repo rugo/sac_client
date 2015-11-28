@@ -54,7 +54,7 @@ class Client:
         return json.loads(self.get_next_appointment_raw())
 
 def example():
-    client = Client("xxxxx", "ficker", "comfortaable.com:1443", "cert.pem")
+    client = Client("hanswurst", "tQ6cJ4RTAkNpkbg4mou4S6Omlo7l87D7AjY=", "comfortaable.com:1443", "cert.pem")
     print(client.get_next_appointment_raw())
 
 if __name__ == '__main__':
