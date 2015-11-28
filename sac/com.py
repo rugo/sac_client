@@ -35,7 +35,7 @@ class Client:
             self.con.connect() # lost connection
             return self._send_request(method, path, BODY)
 
-    def _handleResponse(self, response):
+    def _handle_response(self, response):
         if response.status == httplib.OK:
             return response.read()
         else:
@@ -45,7 +45,7 @@ class Client:
         """
         Return next appointment as json string.
         """
-        return self._handleResponse(self.send_request(DEFAULT_PATH.format(device_id=self.device_id)))
+        return self._handle_response(self.send_request(DEFAULT_PATH.format(device_id=self.device_id)))
 
     def get_next_appointment(self):
         """

@@ -16,7 +16,7 @@ class DefHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         s.send_response(200)
         s.send_header("Content-type", "text/html")
         s.end_headers()
-        if util.isRegistered():
+        if util.is_registered():
             s.wfile.write(contents["registered"])
         else:
             s.wfile.write(contents["unregistered"])

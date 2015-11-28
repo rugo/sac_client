@@ -4,7 +4,7 @@ DEVICE_ID_FILE_NAME = "/etc/sac/device_id"
 SECRET_FILE_NAME = "/etc/sac/secret"
 DEF_SECRET_LENGTH = 26
 
-def isRegistered():
+def is_registered():
     return os.path.exists(SECRET_FILE_NAME)
 
 def __readAndReturn(file_name):
