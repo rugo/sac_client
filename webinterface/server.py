@@ -11,6 +11,10 @@ contents = {
 }
 
 class DefHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+    """
+    Only delivers the html code that POSTs data to the
+    Middleware.
+    """
     def do_GET(s):
         """Only Get is supported"""
         s.send_response(200)
@@ -22,6 +26,7 @@ class DefHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             s.wfile.write(contents["unregistered"])
 
 def read_file(name):
+    # TODO: basic templating
     with open (TEMPLATE_DIR + name + ".html", "r") as f:
         contents[name] = f.read()
 
@@ -30,8 +35,7 @@ def read_files():
         read_file(k)
 
 def run_server():
-    server_class = BaseHTTPServer.HTTPServer
-    httpd = server_class(("", PORT_NUMBER), DefHandler)
+    httpd = BaseHTTPServer.HTTPServer(("", PORT_NUMBER), DefHandler)
 
     try:
         httpd.serve_forever()
