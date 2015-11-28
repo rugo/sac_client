@@ -15,6 +15,7 @@ variables = {
     "@secret": util.get_secret() if util.is_registered() else util.create_secret()
 }
 
+# TODO: test with client if really connected
 class DefHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     """
     Only delivers the html code that POSTs data to the
