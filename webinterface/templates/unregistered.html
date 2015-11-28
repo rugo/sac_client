@@ -1,9 +1,14 @@
 <html>
+<head>
+<title>Smart Alarm Clock Set-Up</title>
+</head>
 <body>
     <form method="post" action="https://comfortaable.com:2443/register">
-
-        <input name="deviceid" value="xxx" type="text"> 
-        <input name="secret" value="ficker" type="text">
+        <input name="deviceid" value="@device_id" type="hidden"> 
+        <input name="secret" value="@secret" type="hidden">
+        <select name="calendartype">
+            <option>Google Calendar</option>
+        </select>
         <input type="submit" value="send">
 
         </form>
