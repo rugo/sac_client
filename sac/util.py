@@ -12,13 +12,9 @@ def is_registered():
     """
     raises NoInternet in case there is ... no internet
     """
-    try:
-        secret = get_secret()
-    except IOError:
-        return False
     client = com.Client(
             get_device_id(),
-            secret,
+            get_secret(),
             config.API_SERVER,
             config.CERT_PATH
     )
