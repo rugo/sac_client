@@ -2,12 +2,16 @@ import httplib
 import ssl
 from base64 import b64encode
 import json
+import config
+from socket import gaierror
 
 DEFAULT_PATH="/calendar/next/{device_id}"
 
 class ClientException(Exception):
     pass
 class BadResponse(ClientException):
+    pass
+class NoInternet(ClientException):
     pass
 
 class Client:
@@ -17,15 +21,19 @@ class Client:
         # create connection with own certificate
         self.con = httplib.HTTPSConnection(
             server_str,
-            context=ssl.create_default_context(cafile=cert_path)
+            context=ssl.create_default_context(cafile=cert_path),
+            timeout=config.REQUEST_TIMEOUT
         )
 
     def _send_request(self, method, path, BODY):
         # We need to send auth string with every request
-        self.con.request(method, path, BODY, headers={ 
-            'Authorization' : 'Basic %s' %  self.auth_string 
-            }
-        )
+        try:
+            self.con.request(method, path, BODY, headers={ 
+                'Authorization' : 'Basic %s' %  self.auth_string 
+                }
+            )
+        except gaierror:
+            raise NoInternet()
         return self.con.getresponse()
 
     def send_request(self, path, method="GET", BODY=""):
@@ -41,6 +49,14 @@ class Client:
         else:
             raise BadResponse("Bad http status in response {}".format(response.status))
     
+    def connection_works(self):
+        try:
+            self.get_next_appointment_raw()
+        except BadResponse as e:
+            print("Got bad response" + str(e))
+            return False
+        return True
+
     def get_next_appointment_raw(self):
         """
         Return next appointment as json string.
@@ -54,7 +70,7 @@ class Client:
         return json.loads(self.get_next_appointment_raw())
 
 def example():
-    client = Client("hanswurst", "tQ6cJ4RTAkNpkbg4mou4S6Omlo7l87D7AjY=", "comfortaable.com:1443", "cert.pem")
+    client = Client("holzk", "YvBsrqNtR8VCz2+wwxmYKMK1EHecAzVe/XY=", config.API_SERVER, config.CERT_PATH)
     print(client.get_next_appointment_raw())
 
 if __name__ == '__main__':

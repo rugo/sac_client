@@ -1,21 +1,23 @@
 import time
 import BaseHTTPServer
 from sac import util
+from sac.com import NoInternet
 
 PORT_NUMBER = 8080
 TEMPLATE_DIR = "templates/"
 
 contents = {
     "registered": "",
-    "unregistered": ""
+    "unregistered": "",
+    "no_internet": ""
 }
 
 variables = {
     "@device_id": util.get_device_id(),
-    "@secret": util.get_secret() if util.is_registered() else util.create_secret()
+    "@secret": util.get_secret()
 }
 
-# TODO: test with client if really connected
+
 class DefHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     """
     Only delivers the html code that POSTs data to the
@@ -26,18 +28,23 @@ class DefHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         s.send_response(200)
         s.send_header("Content-type", "text/html")
         s.end_headers()
-        if util.is_registered():
+        try:
+            registered = util.is_registered()
+        except NoInternet:
+            s.wfile.write(contents["no_internet"])
+            return
+
+        if registered:
             s.wfile.write(contents["registered"])
         else:
             s.wfile.write(contents["unregistered"])
-            util.register()
 
 def read_file(name):
     with open (TEMPLATE_DIR + name + ".html", "r") as f:
         content = f.read()
         for var in variables:
             content = content.replace(var, variables[var])
-        contents[name]  = content
+        contents[name] = content
 
 def read_files():
     for k in contents:
