@@ -53,7 +53,6 @@ class Client:
         try:
             self.get_next_appointment_raw()
         except BadResponse as e:
-            print("Got bad response" + str(e))
             return False
         return True
 
