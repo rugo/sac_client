@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/opt/sac/bin/python
 import time
 import BaseHTTPServer
 from sac import util
