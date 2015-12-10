@@ -3,8 +3,8 @@ from base64 import b64encode
 import com
 import config
 
-DEVICE_ID_FILE_NAME = "/tmp/sac/device_id"
-SECRET_FILE_NAME = "/tmp/sac/secret"
+DEVICE_ID_FILE_NAME = "/opt/sac/device_id"
+SECRET_FILE_NAME = "/opt/sac/secret"
 
 DEF_SECRET_LENGTH = 26
 

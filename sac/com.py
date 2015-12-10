@@ -6,6 +6,8 @@ import config
 from socket import gaierror
 
 DEFAULT_PATH="/calendar/next/{device_id}"
+# default fields to return on get values methods
+DEFAULT_VALUE_ORDER = ["time", "name", "description", "location"]
 
 class ClientException(Exception):
     pass
@@ -21,7 +23,7 @@ class Client:
         # create connection with own certificate
         self.con = httplib.HTTPSConnection(
             server_str,
-            # context=ssl.create_default_context(cafile=cert_path),
+            context=ssl.create_default_context(cafile=cert_path),
             timeout=config.REQUEST_TIMEOUT
         )
 
@@ -67,6 +69,13 @@ class Client:
         Returns next appointment as python dict.
         """
         return json.loads(self.get_next_appointment_raw())
+
+    def get_next_appointment_values(self, sep):
+        """
+        Returns next appointment values as string, seperated by sep
+        """
+        app = self.get_next_appointment()["appointment"]
+        return sep.join([unicode(app[f]) for f in DEFAULT_VALUE_ORDER])
 
 def example():
     client = Client("dadasdasdas", "QE4x9QRfCbYb8Lhvb1ENX+j9JZM6bYBtkOk=", config.API_SERVER, config.CERT_PATH)
