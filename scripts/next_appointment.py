@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from sac import com
 from sac import util
 from sac import config
