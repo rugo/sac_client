@@ -21,7 +21,7 @@ class Client:
         # create connection with own certificate
         self.con = httplib.HTTPSConnection(
             server_str,
-            context=ssl.create_default_context(cafile=cert_path),
+            # context=ssl.create_default_context(cafile=cert_path),
             timeout=config.REQUEST_TIMEOUT
         )
 
@@ -69,8 +69,8 @@ class Client:
         return json.loads(self.get_next_appointment_raw())
 
 def example():
-    client = Client("holzk", "YvBsrqNtR8VCz2+wwxmYKMK1EHecAzVe/XY=", config.API_SERVER, config.CERT_PATH)
-    print(client.get_next_appointment_raw())
+    client = Client("dadasdasdas", "QE4x9QRfCbYb8Lhvb1ENX+j9JZM6bYBtkOk=", config.API_SERVER, config.CERT_PATH)
+    print(client.get_next_appointment())
 
 if __name__ == '__main__':
     example()
