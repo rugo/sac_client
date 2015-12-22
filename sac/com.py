@@ -72,10 +72,10 @@ class Client:
 
     def get_next_appointment_values(self, sep):
         """
-        Returns next appointment values as string, seperated by sep
+        Returns next appointment values as unicode string, seperated by sep
         """
         app = self.get_next_appointment()["appointment"]
-        return sep.join([unicode(app[f]) for f in DEFAULT_VALUE_ORDER])
+        return sep.join([unicode(app[f]) for f in DEFAULT_VALUE_ORDER]).encode("utf-8")
 
 def example():
     client = Client("dadasdasdas", "QE4x9QRfCbYb8Lhvb1ENX+j9JZM6bYBtkOk=", config.API_SERVER, config.CERT_PATH)

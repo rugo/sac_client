@@ -38,3 +38,6 @@ def create_secret():
     with open(SECRET_FILE_NAME, "w") as f:
         f.write(secret)
     return secret
+
+def get_default_client():
+    return com.Client(get_device_id(), get_secret(), config.API_SERVER, config.CERT_PATH)
