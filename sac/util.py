@@ -96,6 +96,13 @@ def get_appointment_from_file(file_name, error_file_name):
                 error = decode_input(f.read())
 
         return app, error
+    except IOError as e:
+        # in case no cache was ever written (yet)
+        # we inform about not beeing set up yet
+        if not os.path.isfile(file_name):
+            return {}, config.ERR_NOT_SETUP
+        else:  # otherwise: no clue what happend
+            return {}, config.ERR_UNHANDELED
     except Exception as e:
         print(e)
         return {}, unicode(type(e))

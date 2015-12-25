@@ -33,6 +33,7 @@ ERR_NO_INET = u"No internet connection"
 ERR_BAD_RESP = u"Communication error"
 ERR_UNHANDELED = u"Encountered errors"
 ERR_NO_APPS = u"No upcomming appointments"
+ERR_NOT_SETUP = u"Device not yet synchronized"
 
 # Paths to cache data (should be in /tmp)
 APP_CACHE_PATH = "/tmp/sac_next_app.json"

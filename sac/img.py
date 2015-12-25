@@ -24,6 +24,9 @@ def _draw_on_pic(img, app_date, app_time, app_name, error=""):
 
     return img
 
+def draw_error_text(backg_img, dst_img, error):
+    _draw_on_pic(Image.open(backg_img), "", "", "", error).save(dst_img)
+    
 def draw_appointment(backg_img, dst_img, app, error=""):
     """
     @param backg_img: Path to background image

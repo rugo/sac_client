@@ -3,7 +3,7 @@ import ssl
 from base64 import b64encode
 import json
 import config
-from socket import gaierror
+from socket import gaierror, error as sockerr
 
 DEFAULT_PATH="/calendar/next/{device_id}"
 # default fields to return on get values methods
@@ -46,6 +46,8 @@ class Client:
         except httplib.NotConnected as e:
             self.con.connect() # lost connection
             return self._send_request(method, path, BODY)
+        except sockerr:
+            raise NoInternet()
 
     def _handle_response(self, response):
         if response.status == httplib.OK:

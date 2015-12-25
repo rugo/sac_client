@@ -9,7 +9,7 @@ def main():
     if app:
         img.draw_appointment(config.BACKGROUND_IMG, config.APP_CACHE_IMG, app, error)
     else:
-        raise ValueError("No appointment in cache file!") # wtf?
+        img.draw_error_text(config.BACKGROUND_IMG, config.APP_CACHE_IMG, error)
 
 if __name__ == '__main__':
     main()
