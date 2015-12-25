@@ -1,3 +1,4 @@
+#!/opt/sac/bin/python
 from sac import util
 from sac import img
 from sac import config
