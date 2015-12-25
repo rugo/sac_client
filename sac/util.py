@@ -12,6 +12,7 @@ DEF_SECRET_LENGTH = 26
 errorMsg = {
     com.NoInternet: config.ERR_NO_INET,
     com.BadResponse: config.ERR_BAD_RESP,
+    com.NoAppointments: config.ERR_NO_APPS
 }
 
 def is_registered():
@@ -48,11 +49,19 @@ def create_secret():
 def get_default_client():
     return com.Client(get_device_id(), get_secret(), config.API_SERVER, config.CERT_PATH)
 
+def __str_to_uni(text):
+    text = text.decode(config.TEXT_ENCODING)
+    if isinstance(text, str):
+        text = unicode(text, config.TEXT_ENCODING)
+    elif isinstance(text, unicode):
+        text = text.encode(config.TEXT_ENCODING)
+    return text
+
 def encode_output(text):
-    return text.encode(config.TEXT_ENCODING)
+    return __str_to_uni(text)
 
 def decode_input(text):
-    return unicode(text).decode(config.TEXT_ENCODING)
+    return __str_to_uni(text)
 
 def save_appointment_to_file(file_name, error_file_name):  
     try:
@@ -88,4 +97,5 @@ def get_appointment_from_file(file_name, error_file_name):
 
         return app, error
     except Exception as e:
+        print(e)
         return {}, unicode(type(e))

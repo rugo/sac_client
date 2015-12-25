@@ -15,6 +15,8 @@ class BadResponse(ClientException):
     pass
 class NoInternet(ClientException):
     pass
+class NoAppointments(ClientException):
+    pass
 
 class Client:
     def __init__(self, device_id, secret, server_str, cert_path):
@@ -48,6 +50,8 @@ class Client:
     def _handle_response(self, response):
         if response.status == httplib.OK:
             return response.read()
+        elif response.status == httplib.NOT_FOUND:
+            raise NoAppointments()
         else:
             raise BadResponse("Bad http status in response {}, {}".format(response.status, response.read()))
     
