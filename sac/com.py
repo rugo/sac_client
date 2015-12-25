@@ -49,7 +49,7 @@ class Client:
         if response.status == httplib.OK:
             return response.read()
         else:
-            raise BadResponse("Bad http status in response {}".format(response.status))
+            raise BadResponse("Bad http status in response {}, {}".format(response.status, response.read()))
     
     def connection_works(self):
         try:
