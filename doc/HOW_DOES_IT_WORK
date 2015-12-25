@@ -1,0 +1,12 @@
+So basically:
+
+The clock runs 2 cronjobs per minute:
+
+First job - bash script that does the following: 
+1. sleep for 30 secs
+2. execute scripts/save_next_appointment.py, which stores the next appointment and/or error messages in /tmp, on file for the appointment on for the error.
+3. execute scripts/draw_on_script.py, which draws contents of the appointment file (writte in step 2.) and IF the timestamp of the error file is newer than the timestamp of the appointment file, also the error on a image and stores it in /tmp
+4. execute printimg to draw the image from step 3. on the screen.
+
+Second job:
+Checks if its time for an alarm. Starts alarm if so.
