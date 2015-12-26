@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 CONF=/mnt/var/lib/connman/wifi_eduroam.config 
 if [ -f $CONF ]; then
