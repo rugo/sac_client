@@ -1,0 +1,3 @@
+# udev rule for the spidev files
+# Its 2 AM, to late for me to understand why a simple MODE="0660" doesnt work...
+KERNEL=="spidev*", SUBSYSTEM=="spidev", GROUP="spi", PROGRAM="/bin/sh -c 'chmod 660 /dev/spidev*'" 
