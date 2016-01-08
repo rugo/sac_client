@@ -1,16 +1,30 @@
 <html>
-<head>
-<title>Smart Alarm Clock Set-Up</title>
-</head>
-<body>
-    <form method="post" action="https://comfortaable.com:2443/register">
-        <input name="deviceid" value="@device_id" type="hidden"> 
-        <input name="secret" value="@secret" type="hidden">
-        <select name="calendartype">
-            <option>Google Calendar</option>
-        </select>
-        <input type="submit" value="send">
-
-        </form>
+    <head>
+        <title>Smart Alarm Clock Set-Up</title>
+    </head>
+<!-- <body style="background: url(http://i0.kym-cdn.com/photos/images/newsfeed/000/538/717/e45.gif) no-repeat center center fixed;"> -->
+    <body>
+        <center>
+        <img src="http://uc-lab.in.htwg-konstanz.de/images/logos/header_logo_small_2.png" alt="uc lab logo" />
+        <h1>The Smart Alarm Clock</h1>
+        <form method="post" action="https://comfortaable.com:2443/register">
+            <input name="deviceid" value="@device_id" type="hidden"> 
+            <input name="secret" value="@secret" type="hidden">
+            <table>
+                <tr>
+                    <td>
+                        <select name="calendartype">
+                            <option>Google Calendar</option>
+                            <option>Apple Calendar</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <input type="submit" value="send">
+                    </td>
+                </tr>
+            </form>
+        </center>
     </body>
 </html>
